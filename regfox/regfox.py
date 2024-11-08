@@ -54,7 +54,7 @@ class RegFox(commands.Cog):
                 try:
                     payload = response.json()
                 except requests.JSONDecodeError:
-                    await ctx.send("JSON Decoding error, response is {res}".format(res=response.text()))
+                    await ctx.send("JSON Decoding error, response is {res}".format(res=response.text))
                 else:
                     await ctx.send("{count} currently registered!".format(count=payload['data'][1]['sold']))
             elif response.status_code == requests.codes.bad:
@@ -77,6 +77,6 @@ class RegFox(commands.Cog):
             try:
                 payload = response.json()
             except requests.JSONDecodeError:
-                await ctx.send("JSON Decoding error, response is {res}".format(res=response.text()))
+                await ctx.send("JSON Decoding error, response is {res}".format(res=response.text))
             else:
                 await ctx.send("Code {code}, MSG {data}".format(code=response.status_code, data=payload['data']))
