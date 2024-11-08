@@ -1,0 +1,8 @@
+{
+    "author":"Cable The Wizard",
+    "description":"A RegFox API interaction Cog, used to talk to parts of RegFox for Sekai Guild",
+    "install_msg":"Installed RegFox, please set your API key, page ID, and reg URL before attempting to use any functions",
+    "short":"RegFox API Cog",
+    "end_user_data_statement":"This cog stores an API key for your RegFox instance, the page ID for your RegFox page, and the link to a RegFox page. This data is stored using the RedBot config API.",
+    "requirements":["requests"]
+}
