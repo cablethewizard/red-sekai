@@ -1,5 +1,6 @@
 from redbot.core import commands
 from redbot.core import Config
+from redbot.core.utils import chat_formatting
 import requests
 
 class RegFox(commands.Cog):
@@ -77,6 +78,7 @@ class RegFox(commands.Cog):
             try:
                 payload = response.json()
             except requests.JSONDecodeError:
-                await ctx.send("JSON Decoding error")
+                jsonerror = chat_formatting.text_to_file(response.text,filename='jsonerror.txt',spoiler=False,encoding='utf-8')
+                await ctx.send("JSON Decoding error", file=jsonerror)
             else:
                 await ctx.send("Code {code}, MSG {data}".format(code=response.status_code, data=payload['data']))
