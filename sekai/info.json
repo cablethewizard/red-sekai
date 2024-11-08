@@ -1,0 +1,7 @@
+{
+    "author":"Cable The Wizard",
+    "description":"The Sekai Cog, used to talk to attendees for Sekai Guild",
+    "install_msg":"Installed Sekai, please set your reg URL before attempting to use any functions",
+    "short":"Sekai Guild Management Cog",
+    "end_user_data_statement":"This cog stores the link to a RegFox page. This data is stored using the RedBot config API."
+}
