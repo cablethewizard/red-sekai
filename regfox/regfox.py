@@ -9,17 +9,10 @@ class RegFox(commands.Cog):
         self.config = Config.get_conf(self, identifier=3857064354, force_registration=True)
         default_guild = {
             "apiKey":"",
-            "registrationLink":"",
             "pageid":0
         }
         self.config.register_guild(**default_guild)
         self.bot = bot
-    
-    @commands.hybrid_command(name="setregistrationlink")
-    @commands.admin_or_permissions(manage_guild=True)
-    async def setRegistrationLink(self,ctx,new_value):
-        await self.config.guild(ctx.guild).registrationLink.set(new_value)
-        await ctx.send("Registration link updated!")
     
     @commands.hybrid_command(name="setapikey")
     @commands.admin()
@@ -32,11 +25,6 @@ class RegFox(commands.Cog):
     async def setPageID(self,ctx,new_value):
         await self.config.guild(ctx.guild).pageid.set(new_value)
         await ctx.send("RegFox page ID updated!")
-
-    @commands.hybrid_command(name="register")
-    async def register(self,ctx):
-        reglink = await self.config.guild(ctx.guild).registrationLink()
-        await ctx.send("Register for Sekaicon here: {}".format(reglink))
 
     @commands.hybrid_command(name="regcount")
     async def regcount(self,ctx):
