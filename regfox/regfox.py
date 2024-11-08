@@ -45,10 +45,15 @@ class RegFox(commands.Cog):
             response = requests.get(url="https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf), headers={"apiKey":"{key}".format(key=apikeyconf)})
         except ConnectionError:
             await ctx.send("Connection error, unable to reach RegFox")
-        payload = response.json()
-        if response.status_code == requests.codes.ok:
-            await ctx.send("{count} currently registered!".format(count=payload['data'][0]['sold']))
-        elif response.status_code == requests.codes.bad:
-            await ctx.send("Error, Webconnex API unavailable")
         else:
-            await ctx.send("ERROR {code}".format(code=response.status_code))
+            if response.status_code == requests.codes.ok:
+                try:
+                    payload = response.json()
+                except requests.JSONDecodeError:
+                    await ctx.send("JSON Decoding error, response is {res}".format(res=response.text()))
+                else:
+                    await ctx.send("{count} currently registered!".format(count=payload['data'][0]['sold']))
+            elif response.status_code == requests.codes.bad:
+                await ctx.send("Error, Webconnex API unavailable")
+            else:
+                await ctx.send("ERROR {code}".format(code=response.status_code))
