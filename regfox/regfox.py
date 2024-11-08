@@ -35,7 +35,7 @@ class RegFox(commands.Cog):
         url = "https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf)
         headers = {
             "apiKey": "{}".format(apikeyconf),
-            "User-Agent": self.useragent.chrome
+            "User-Agent": self.useragent.random
         }
         try:
             response = requests.get(url=url, headers=headers)
@@ -59,7 +59,7 @@ class RegFox(commands.Cog):
         url = "https://api.webconnex.com/v2/public/ping"
         headers = {
             "apiKey": "{}".format(apikeyconf),
-            "User-Agent": self.useragent.chrome
+            "User-Agent": self.useragent.random
         }
         try:
             response = requests.get(url=url, headers=headers)
