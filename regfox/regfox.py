@@ -79,6 +79,7 @@ class RegFox(commands.Cog):
                 await ctx.send("ERROR {code}".format(code=response.status_code), file=errorfile)
     
     @commands.hybrid_command(name="connectiontest")
+    @commands.admin()
     async def connectiontest(self,ctx):
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
         url = "https://api.webconnex.com/v2/public/ping"

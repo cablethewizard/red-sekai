@@ -23,3 +23,8 @@ class Sekai(commands.Cog):
         """Get the registration link for the event."""
         reglink = await self.config.guild(ctx.guild).registrationLink()
         await ctx.send("Register for Sekaicon here: {}".format(reglink))
+
+    @commands.hybrid_command(name="info")
+    async def info(self,ctx):
+        """See what Mecha-Parker can do for you"""
+        await ctx.send("Hi, I'm Mecha-Parker! Use .help for general information, or use /register to get a link to register for Sekaicon!")
