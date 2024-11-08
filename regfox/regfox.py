@@ -74,4 +74,9 @@ class RegFox(commands.Cog):
         except ConnectionError:
             await ctx.send("Connection error, unable to reach RegFox")
         else:
-            await ctx.send(response.json())
+            try:
+                payload = response.json()
+            except requests.JSONDecodeError:
+                await ctx.send("JSON Decoding error, response is {res}".format(res=response.text()))
+            else:
+                await ctx.send("Code {code}, MSG {data}".format(code=response.status_code, data=payload['data']))
