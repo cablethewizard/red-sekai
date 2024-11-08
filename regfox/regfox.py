@@ -15,7 +15,32 @@ class RegFox(commands.Cog):
         self.config.register_guild(**default_guild)
         self.bot = bot
         self.useragent = UserAgent()
-    
+    """
+    async def regfoxRequest(self, ctx, url):
+        apikeyconf = await self.config.guild(ctx.guild).apiKey()
+        requrl = url
+        headers = {
+            "apiKey": "{}".format(apikeyconf),
+            "User-Agent": self.useragent.random
+        }
+        try:
+            response = requests.get(url=requrl, headers=headers)
+        except ConnectionError:
+            payload = "ERROR: Unable to reach WebConnex"
+            return payload
+        else:
+            if response.status_code == requests.codes.ok:
+                try:
+                    payload = response.json()
+                except requests.JSONDecodeError:
+                    payload = "JSON Decode Error"
+                    return payload
+                else:
+                    return payload
+            else:
+                payload = "ERROR {code}".format(code=response.status_code)
+                return
+    """
     @commands.hybrid_command(name="setapikey")
     @commands.admin()
     async def setAPIKey(self,ctx,new_value):
