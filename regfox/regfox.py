@@ -34,11 +34,17 @@ class RegFox(commands.Cog):
 
     @commands.hybrid_command(name="register")
     async def register(self,ctx):
-        await ctx.send("Register for Sekaicon here: {}".format(self.config.guild(ctx.guild).registrationLink()))
+        reglink = await self.config.guild(ctx.guild).registrationLink()
+        await ctx.send("Register for Sekaicon here: {}".format(reglink))
 
     @commands.hybrid_command(name="regcount")
     async def regcount(self,ctx):
-        response = requests.get(url="https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=self.config.guild(ctx.guild).pageid()), headers={"apiKey":"{key}".format(key=self.config.guild(ctx.guild).apiKey())})
+        pageidconf = await self.config.guild(ctx.guild).pageid()
+        apikeyconf = self.config.guild(ctx.guild).apiKey()
+        try:
+            response = requests.get(url="https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf), headers={"apiKey":"{key}".format(key=apikeyconf)})
+        except ConnectionError:
+            await ctx.send("Connection error, unable to reach RegFox")
         payload = response.json()
         if response.status_code == requests.codes.ok:
             await ctx.send("{count} currently registered!".format(count=payload['data'][0]['sold']))
