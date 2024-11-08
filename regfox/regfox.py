@@ -51,7 +51,7 @@ class RegFox(commands.Cog):
                     await ctx.send("{count} currently registered!".format(count=payload['data'][1]['sold']))
             else:
                 errorfile = chat_formatting.text_to_file(response.text,filename='error.txt',spoiler=False,encoding='utf-8')
-                headerfile = chat_formatting.text_to_file(response.headers,filename='headers.txt',spoiler=False,encoding='utf-8')
+                headerfile = chat_formatting.text_to_file(response.headers.get(),filename='headers.txt',spoiler=False,encoding='utf-8')
                 await ctx.send("ERROR {code}".format(code=response.status_code), files=[errorfile,headerfile])
     
     @commands.hybrid_command(name="connectiontest")
