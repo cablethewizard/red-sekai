@@ -41,8 +41,12 @@ class RegFox(commands.Cog):
     async def regcount(self,ctx):
         pageidconf = await self.config.guild(ctx.guild).pageid()
         apikeyconf = self.config.guild(ctx.guild).apiKey()
+        url = "https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf)
+        headers = {
+            "apiKey": apikeyconf
+        }
         try:
-            response = requests.get(url="https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf), headers={"apiKey":"{key}".format(key=apikeyconf)})
+            response = requests.get(url=url, headers=headers)
         except ConnectionError:
             await ctx.send("Connection error, unable to reach RegFox")
         else:
