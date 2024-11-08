@@ -45,6 +45,7 @@ class RegFox(commands.Cog):
         headers = {
             "apiKey": "{}".format(apikeyconf)
         }
+        print(url, headers)
         try:
             response = requests.get(url=url, headers=headers)
         except ConnectionError:
