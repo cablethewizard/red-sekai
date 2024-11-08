@@ -2,6 +2,7 @@ from redbot.core import commands
 from redbot.core import Config
 from redbot.core.utils import chat_formatting
 import requests
+from fake_useragent import UserAgent
 
 class RegFox(commands.Cog):
     """RegFox cog, handles communication with RegFox registration platform"""
@@ -13,6 +14,7 @@ class RegFox(commands.Cog):
         }
         self.config.register_guild(**default_guild)
         self.bot = bot
+        self.useragent = UserAgent()
     
     @commands.hybrid_command(name="setapikey")
     @commands.admin()
@@ -32,7 +34,8 @@ class RegFox(commands.Cog):
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
         url = "https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf)
         headers = {
-            "apiKey": "{}".format(apikeyconf)
+            "apiKey": "{}".format(apikeyconf),
+            "User-Agent": self.useragent('chrome')
         }
         try:
             response = requests.get(url=url, headers=headers)
@@ -55,7 +58,8 @@ class RegFox(commands.Cog):
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
         url = "https://api.webconnex.com/v2/public/ping"
         headers = {
-            "apiKey": "{}".format(apikeyconf)
+            "apiKey": "{}".format(apikeyconf),
+            "User-Agent": self.useragent('chrome')
         }
         try:
             response = requests.get(url=url, headers=headers)
