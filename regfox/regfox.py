@@ -56,11 +56,22 @@ class RegFox(commands.Cog):
                 except requests.JSONDecodeError:
                     await ctx.send("JSON Decoding error, response is {res}".format(res=response.text()))
                 else:
-                    await ctx.send("{count} currently registered!".format(count=payload['data'][0]['sold']))
+                    await ctx.send("{count} currently registered!".format(count=payload['data'][1]['sold']))
             elif response.status_code == requests.codes.bad:
                 await ctx.send("Error, Webconnex API unavailable")
             else:
                 await ctx.send("ERROR {code}".format(code=response.status_code))
-                await ctx.send(url)
-                await ctx.send(headers)
-                await ctx.send(response.text)
+    
+    @commands.hybrid_command(name="connectiontest")
+    async def connectiontest(self,ctx):
+        apikeyconf = await self.config.guild(ctx.guild).apiKey()
+        url = "https://api.webconnex.com/v2/public/ping"
+        headers = {
+            "apiKey": "{}".format(apikeyconf)
+        }
+        try:
+            response = requests.get(url=url, headers=headers)
+        except ConnectionError:
+            await ctx.send("Connection error, unable to reach RegFox")
+        else:
+            await ctx.send(response.json())
