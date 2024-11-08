@@ -43,7 +43,7 @@ class RegFox(commands.Cog):
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
         url = "https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf)
         headers = {
-            "apiKey": apikeyconf
+            "apiKey": "{}".format(apikeyconf)
         }
         try:
             response = requests.get(url=url, headers=headers)
