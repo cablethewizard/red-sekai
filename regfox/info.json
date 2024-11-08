@@ -1,5 +1,5 @@
 {
-    "author":"Cable The Wizard",
+    "authors":"Cable The Wizard",
     "description":"A RegFox API interaction Cog, used to talk to parts of RegFox for Sekai Guild",
     "install_msg":"Installed RegFox, please set your API key, page ID, and reg URL before attempting to use any functions",
     "short":"RegFox API Cog",
