@@ -8,7 +8,8 @@ class RegFox(commands.Cog):
         self.config = Config.get_conf(self, identifier=3857064354, force_registration=True)
         default_guild = {
             "apiKey":"",
-            "registrationLink":""
+            "registrationLink":"",
+            "pageid":0
         }
         self.config.register_guild(**default_guild)
         self.bot = bot
@@ -26,12 +27,18 @@ class RegFox(commands.Cog):
         await ctx.send("RegFox API Key updated!")
 
     @commands.command()
+    @commands.admin()
+    async def setPageID(self,ctx,new_value):
+        await self.config.guild(ctx.guild).pageid.set(new_value)
+        await ctx.send("RegFox page ID updated!")
+
+    @commands.command()
     async def register(self,ctx):
         await ctx.send("Register for Sekaicon here: {}".format(self.config.guild(ctx.guild).registrationLink()))
 
     @commands.command()
     async def regcount(self,ctx):
-        response = requests.get(url="https://api.webconnex.com/v2/public/forms/676/inventory", headers={"apiKey":"{}".format(self.config.guild(ctx.guild).apiKey())})
+        response = requests.get(url="https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=self.config.guild(ctx.guild).pageid()), headers={"apiKey":"{key}".format(key=self.config.guild(ctx.guild).apiKey())})
         payload = response.json()
         if response.status_code == requests.codes.ok:
             await ctx.send("{count} currently registered!".format(count=payload['data'][0]['sold']))
