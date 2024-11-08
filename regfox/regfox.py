@@ -58,10 +58,9 @@ class RegFox(commands.Cog):
                     await ctx.send("JSON Decoding error")
                 else:
                     await ctx.send("{count} currently registered!".format(count=payload['data'][1]['sold']))
-            elif response.status_code == requests.codes.bad:
-                await ctx.send("Error, Webconnex API unavailable")
             else:
-                await ctx.send("ERROR {code}".format(code=response.status_code))
+                errorfile = chat_formatting.text_to_file(response.text,filename='error.txt',spoiler=False,encoding='utf-8')
+                await ctx.send("ERROR {code}".format(code=response.status_code), file=errorfile)
     
     @commands.hybrid_command(name="connectiontest")
     async def connectiontest(self,ctx):
