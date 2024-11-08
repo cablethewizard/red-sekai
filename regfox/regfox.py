@@ -45,7 +45,6 @@ class RegFox(commands.Cog):
         headers = {
             "apiKey": "{}".format(apikeyconf)
         }
-        print(url, headers)
         try:
             response = requests.get(url=url, headers=headers)
         except ConnectionError:
@@ -62,3 +61,6 @@ class RegFox(commands.Cog):
                 await ctx.send("Error, Webconnex API unavailable")
             else:
                 await ctx.send("ERROR {code}".format(code=response.status_code))
+                await ctx.send(url)
+                await ctx.send(headers)
+                await ctx.send(response.text)
