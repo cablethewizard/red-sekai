@@ -52,6 +52,7 @@ class RegFox(commands.Cog):
             else:
                 errorfile = chat_formatting.text_to_file(response.text,filename='error.txt',spoiler=False,encoding='utf-8')
                 await ctx.send("ERROR {code}".format(code=response.status_code), file=errorfile)
+                await ctx.send("{}".format(response.headers['user-agent']))
     
     @commands.hybrid_command(name="connectiontest")
     async def connectiontest(self,ctx):
