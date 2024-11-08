@@ -40,7 +40,7 @@ class RegFox(commands.Cog):
     @commands.hybrid_command(name="regcount")
     async def regcount(self,ctx):
         pageidconf = await self.config.guild(ctx.guild).pageid()
-        apikeyconf = self.config.guild(ctx.guild).apiKey()
+        apikeyconf = await self.config.guild(ctx.guild).apiKey()
         url = "https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf)
         headers = {
             "apiKey": apikeyconf
