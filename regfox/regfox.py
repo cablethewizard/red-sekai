@@ -54,7 +54,7 @@ class RegFox(commands.Cog):
     @commands.admin()
     async def connectiontest(self,ctx):
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
-        url = "https://api.webconnex.com/v2/public/ping"
+        url = "/ping"
         headers = {
             "apiKey": "{}".format(apikeyconf),
             "User-Agent": self.useragent.random
