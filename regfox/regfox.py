@@ -40,14 +40,14 @@ class RegFox(commands.Cog):
         }
         try:
             async with session.get(url, headers=headers) as response:
-                await apidata = response.json()
+                apidata = await response.json()
         except ConnectionError:
             await ctx.send("Connection error, unable to reach RegFox")
         else:
             if response.status == 200:
-                await ctx.send("{count} currently registered!".format(count=payload['data'][1]['sold']))
+                await ctx.send("{count} currently registered!".format(count=apidata['data'][1]['sold']))
             else:
-                errorfile = chat_formatting.text_to_file(response.text,filename='error.txt',spoiler=False,encoding='utf-8')
+                errorfile = chat_formatting.text_to_file(response.text(),filename='error.txt',spoiler=False,encoding='utf-8')
                 await ctx.send("ERROR {code}".format(code=response.status), file=errorfile)
     
     @commands.hybrid_command(name="connectiontest")
