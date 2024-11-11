@@ -15,7 +15,7 @@ class RegFox(commands.Cog):
         self.config.register_guild(**default_guild)
         self.bot = bot
         self.useragent = UserAgent()
-        self.session = aiohttp.ClientSession('https://api.webconnex.com/v2/public')
+        self.session = aiohttp.ClientSession()
 
     @commands.hybrid_command(name="setapikey")
     @commands.admin()
@@ -33,7 +33,7 @@ class RegFox(commands.Cog):
     async def regcount(self,ctx):
         pageidconf = await self.config.guild(ctx.guild).pageid()
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
-        url = "/forms/{pageid}/inventory".format(pageid=pageidconf)
+        url = "https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf)
         headers = {
             "apiKey": "{}".format(apikeyconf),
             "User-Agent": self.useragent.random
@@ -59,7 +59,7 @@ class RegFox(commands.Cog):
     @commands.admin()
     async def connectiontest(self,ctx):
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
-        url = "/ping"
+        url = "https://api.webconnex.com/v2/public/ping"
         headers = {
             "apiKey": "{}".format(apikeyconf),
             "User-Agent": self.useragent.random
