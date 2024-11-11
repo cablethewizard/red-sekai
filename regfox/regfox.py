@@ -39,7 +39,7 @@ class RegFox(commands.Cog):
             "User-Agent": self.useragent.random
         }
         try:
-            async with session.get(url, headers=headers) as response:
+            async with self.session.get(url, headers=headers) as response:
                 apidata = await response.json()
         except ConnectionError:
             await ctx.send("Connection error, unable to reach RegFox")
@@ -60,7 +60,7 @@ class RegFox(commands.Cog):
             "User-Agent": self.useragent.random
         }
         try:
-            async with session.get(url, headers=headers) as response:
+            async with self.session.get(url, headers=headers) as response:
                 apidata = await response.json()
         except ConnectionError:
             await ctx.send("Connection error, unable to reach RegFox")
