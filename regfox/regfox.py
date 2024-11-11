@@ -40,9 +40,12 @@ class RegFox(commands.Cog):
         }
         try:
             async with self.session.get(url, headers=headers) as response:
-                apidata = await response.json()
+                    apidata = await response.json()
         except ConnectionError:
             await ctx.send("Connection error, unable to reach RegFox")
+        except aiohttp.ContentTypeError:
+            errorfile = chat_formatting.text_to_file(response.text(),filename='error.txt',spoiler=False,encoding='utf-8')
+            await ctx.send("JSON Decode Error, sending raw text".format(code=response.status), file=errorfile)
         else:
             if response.status == 200:
                 await ctx.send("{count} currently registered!".format(count=apidata['data'][1]['sold']))
