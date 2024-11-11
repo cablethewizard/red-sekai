@@ -61,7 +61,7 @@ class RegFox(commands.Cog):
         }
         try:
             async with session.get(url, headers=headers) as response:
-                await apidata = response.json()
+                apidata = await response.json()
         except ConnectionError:
             await ctx.send("Connection error, unable to reach RegFox")
         else:             
