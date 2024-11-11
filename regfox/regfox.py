@@ -20,17 +20,20 @@ class RegFox(commands.Cog):
     @commands.hybrid_command(name="setapikey")
     @commands.admin()
     async def setAPIKey(self,ctx,new_value):
+        """Set RegFox API key for use with this server"""
         await self.config.guild(ctx.guild).apiKey.set(new_value)
         await ctx.send("RegFox API Key updated!")
 
     @commands.hybrid_command(name="setpageid")
     @commands.admin()
     async def setPageID(self,ctx,new_value):
+        """Set RegFox page ID for use with this server"""
         await self.config.guild(ctx.guild).pageid.set(new_value)
         await ctx.send("RegFox page ID updated!")
 
     @commands.hybrid_command(name="regcount")
     async def regcount(self,ctx):
+        """Get current count of registered users for the current page"""
         pageidconf = await self.config.guild(ctx.guild).pageid()
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
         url = "https://api.webconnex.com/v2/public/forms/{pageid}/inventory".format(pageid=pageidconf)
@@ -58,6 +61,7 @@ class RegFox(commands.Cog):
     @commands.hybrid_command(name="connectiontest")
     @commands.admin()
     async def connectiontest(self,ctx):
+        """Test connection to RegFox API, 200 is good"""
         apikeyconf = await self.config.guild(ctx.guild).apiKey()
         url = "https://api.webconnex.com/v2/public/ping"
         headers = {
