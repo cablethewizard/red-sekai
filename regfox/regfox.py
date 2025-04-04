@@ -52,7 +52,7 @@ class RegFox(commands.Cog):
             await ctx.send("JSON Decode Error, sending raw text".format(code=response.status), file=errorfile)
         else:
             if response.status == 200:
-                await ctx.send("{count} currently registered!".format(count=apidata['data'][1]['sold']))
+                await ctx.send("{count} currently registered!".format(count=apidata['data'][0]['sold']))
             else:
                 apitext = await response.text()
                 errorfile = chat_formatting.text_to_file(apitext,filename='error.txt',spoiler=False,encoding='utf-8')
